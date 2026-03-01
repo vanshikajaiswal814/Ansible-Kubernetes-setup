@@ -12,16 +12,28 @@ The cluster consists of:
 The setup includes containerd runtime, kubeadm initialization, worker node join, and Calico CNI installation.
 
 🏗 Architecture
-Ansible Control Node
-        |
-        v
--------------------------
-|       AWS VPC         |
-|                       |
-|  Master EC2           |
-|  Worker EC2           |
--------------------------
-
+                         +----------------------+
+                         |  Ansible Control Node |
+                         |  (Local Machine)      |
+                         +----------+------------+
+                                    |
+                                    | SSH (Port 22)
+                                    v
+        -----------------------------------------------------
+        |                     AWS VPC                      |
+        |                                                   |
+        |   +-------------------+      +-------------------+ |
+        |   |   Master Node     |      |   Worker Node     | |
+        |   |   EC2 Instance    |      |   EC2 Instance    | |
+        |   |-------------------|      |-------------------| |
+        |   | kube-apiserver    |      | kubelet           | |
+        |   | controller-mgr    |      | kube-proxy        | |
+        |   | scheduler         |      | containerd        | |
+        |   | etcd              |      |                   | |
+        |   | containerd        |      |                   | |
+        |   +-------------------+      +-------------------+ |
+        |                                                   |
+        -----------------------------------------------------
 AWS EC2 (Ubuntu)
 
 Separate Security Groups for Master and Worker
