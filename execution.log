@@ -1,0 +1,99 @@
+
+PLAY [Apply common configuration to all nodes] *********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [172.31.1.251]
+ok: [172.31.11.225]
+
+TASK [common : Disable swap] ***************************************************
+skipping: [172.31.11.225]
+skipping: [172.31.1.251]
+
+TASK [common : Remove swap from fstab] *****************************************
+ok: [172.31.1.251]
+ok: [172.31.11.225]
+
+TASK [common : Install dependencies] *******************************************
+ok: [172.31.1.251]
+ok: [172.31.11.225]
+
+TASK [common : Install containerd] *********************************************
+ok: [172.31.1.251]
+ok: [172.31.11.225]
+
+TASK [common : Create containerd config directory] *****************************
+ok: [172.31.1.251]
+ok: [172.31.11.225]
+
+TASK [common : Generate default containerd config] *****************************
+ok: [172.31.1.251]
+ok: [172.31.11.225]
+
+TASK [common : Write containerd config file] ***********************************
+ok: [172.31.1.251]
+changed: [172.31.11.225]
+
+TASK [common : Enable and start containerd] ************************************
+ok: [172.31.1.251]
+ok: [172.31.11.225]
+
+TASK [common : Create keyrings directory] **************************************
+ok: [172.31.1.251]
+ok: [172.31.11.225]
+
+TASK [common : Download Kubernetes GPG key] ************************************
+ok: [172.31.1.251]
+ok: [172.31.11.225]
+
+TASK [common : Add Kubernetes apt repository] **********************************
+ok: [172.31.11.225]
+ok: [172.31.1.251]
+
+TASK [common : Install kubelet, kubeadm, kubectl] ******************************
+ok: [172.31.1.251]
+ok: [172.31.11.225]
+
+PLAY [Configure Kubernetes Master] *********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [172.31.11.225]
+
+TASK [master : Initialize Kubernetes master] ***********************************
+ok: [172.31.11.225]
+
+TASK [master : Create .kube directory] *****************************************
+ok: [172.31.11.225]
+
+TASK [master : Copy admin.conf to ubuntu user] *********************************
+changed: [172.31.11.225]
+
+TASK [master : Install Calico CNI] *********************************************
+changed: [172.31.11.225]
+
+TASK [master : Mark calico installed] ******************************************
+changed: [172.31.11.225]
+
+TASK [master : Wait for API server to be ready] ********************************
+changed: [172.31.11.225]
+
+TASK [master : Generate kubeadm join command] **********************************
+ok: [172.31.11.225]
+
+TASK [master : Set join command fact] ******************************************
+ok: [172.31.11.225]
+
+PLAY [Configure Kubernetes Worker] *********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [172.31.1.251]
+
+TASK [worker : Check if worker already joined] *********************************
+ok: [172.31.1.251]
+
+TASK [worker : Join worker to cluster] *****************************************
+changed: [172.31.1.251]
+
+PLAY RECAP *********************************************************************
+172.31.1.251               : ok=15   changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+172.31.11.225              : ok=21   changed=5    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+

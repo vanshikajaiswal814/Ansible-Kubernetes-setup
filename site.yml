@@ -1,0 +1,18 @@
+---
+- name: Apply common configuration to all nodes
+  hosts: all
+  become: yes
+  roles:
+    - common
+
+- name: Configure Kubernetes Master
+  hosts: master
+  become: yes
+  roles:
+    - master
+
+- name: Configure Kubernetes Worker
+  hosts: worker
+  become: yes
+  roles:
+    - worker
